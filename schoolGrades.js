@@ -1,30 +1,23 @@
-function studentGrades(input) {
-  const students = new Map();
+function manageStudentsGrades(input) {
+  let studentGrades = {};
+  input.forEach(el => {
+    el = el.split(` `);
+    let name = el.shift();
+    let grades = el.map(Number);
+    studentGrades.hasOwnProperty(name) ? studentGrades[name].push(...grades) : studentGrades[name] = grades;
+  });
 
-  for (const line of input) {
-    const [name, ...grades] = line.split(' ');
-    const studentName = name;
+  let sortedEntries = Object.entries(studentGrades).sort((a, b) => a[0].localeCompare(b[0]));
 
-    if (!students.has(studentName)) {
-      students.set(studentName, []);
-    }
+  for (let [studentName, grade] of sortedEntries) {
+    let averageGrade = grade.reduce((a, b) => a + b, 0) / grade.length;
 
-    students.get(studentName).push(...grades.map(Number));
-  }
-
-  const sortedStudents = Array.from(students).sort((a, b) => a[0].localeCompare(b[0]));
-
-  for (const [name, grades] of sortedStudents) {
-    const averageGrade = (grades.reduce((sum, grade) => sum + grade, 0) / grades.length).toFixed(2);
-    console.log(`${name}: ${averageGrade}`);
+    console.log(`${studentName}: ${averageGrade.toFixed(2)}`);
   }
 }
 
-const input = [
-  'Lilly 4 6 6 5',
-  'Tim 5 6',
-  'Tammy 2 4 3',
-  'Tim 6 6'
-];
-
-studentGrades(input);
+manageStudentsGrades([
+'Lilly 4 6 6 5',
+'Tim 5 6',
+'Tammy 2 4 3',
+'Tim 6 6']);
