@@ -9,6 +9,11 @@ function solve(input) {
 
   let sorted = Object.keys(addressBook).sort();
 
+  // sorted.forEach(el => {
+  //   let address = addressBook[el];
+  //   console.log(`${el} -> ${address}`);
+  // })
+
   for (let name of sorted) {
     let address = addressBook[name];
     console.log(`${name} -> ${address}`);

@@ -5,11 +5,12 @@ function minerTask(arr) {
     let res = arr[i];
     let qty = Number(arr[i + 1]);
 
-    if (res in resources) {
-      resources[res] += qty;
-    } else {
-      resources[res] = qty;
-    }
+    res in resources ? resources[res] += qty : resources[res] = qty;
+    // if (res in resources) {
+    //   resources[res] += qty;
+    // } else {
+    //   resources[res] = qty;
+    // }
   }
 
   let entries = Object.entries(resources);
